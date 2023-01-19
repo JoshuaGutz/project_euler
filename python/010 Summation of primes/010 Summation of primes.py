@@ -9,9 +9,9 @@
 ############### NOTE THIS VERSION GETS THE WRONG ANSWER 27931306768 ###############
 ###################################################################################
 
-# going back to the code for the Sieve of Eratosthenes algorithm using a bit array instead of a regular array to store the prime numbers
+# The problem with the code is that it's only counting prime numbers in the range of 0 to limit, but the requirement was to find the sum of all the primes below two million.
 
-# here is an example of how the Sieve of Eratosthenes algorithm can be implemented using a bit array instead of a regular array to store the prime numbers:
+# Here is the corrected version of the code:
 
 import array
 
@@ -25,10 +25,8 @@ def sum_of_primes_below_two_million():
             for j in range(i * i, limit, i):
                 primes[j // 8] &= ~(1 << (j % 8))
 
-    return sum(i for i in range(limit) if primes[i // 8] & (1 << (i % 8)))
+    return sum(i for i in range(2, limit) if primes[i // 8] & (1 << (i % 8)))
 
 print(sum_of_primes_below_two_million())
 
-# This version of the code uses a bit array to store the prime numbers, which greatly reduces the memory usage of the algorithm and makes it more efficient.
-
-# It's important to note that the bit array version of the algorithm can be harder to understand and maintain than the regular array version, but it can be more memory-efficient for larger intervals.
+# In this corrected version, The range of the iteration starts from 2 instead of 0 and it ends at limit. Also, the sum that is returned is the sum of the prime numbers between 2 and limit instead of the sum of all numbers between 0 and limit.
