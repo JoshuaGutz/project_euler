@@ -5,32 +5,50 @@
 # The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 # Find the sum of all the primes below two million.
 
-################################################################################
-################ NOTE THIS GETS THE WRONG ANSWER OF 27931306768 ################
-################################################################################
+####################################################################################
+############### NOTE THIS VERSION FEELS SLOWER THAN THE EARLIER ONES ###############
+####################################################################################
 
-# Another way to improve the performance of the Sieve of Eratosthenes algorithm is by using a bit array instead of a regular array to store the prime numbers. A bit array is a compact data structure that uses one bit to represent each value, as opposed to one byte in a regular array. This can greatly reduce the memory usage of the algorithm and make it more efficient.
+# A more advanced algorithm to find prime numbers is the Miller-Rabin primality test. This algorithm is faster than the trial division method used in the Sieve of Eratosthenes and is efficient for large intervals. Here's an example of how the Miller-Rabin primality test can be implemented in Python:
 
-# Here's an example of how the Sieve of Eratosthenes algorithm can be optimized using the wheel factorization method and a bit array:
+from random import randrange
 
-import array
+def is_prime(n, k=10):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    r = 0
+    d = n - 1
+    while d % 2 == 0:
+        r += 1
+        d //= 2
+    for _ in range(k):
+        a = randrange(2, n - 1)
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(r - 1):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
 
 def sum_of_primes_below_two_million():
-    limit = 2000000
-    primes = array.array('B', [1] * (limit // 8 + 1))
-    primes[0] = primes[1] = 0
-
-    for i in range(2, int(limit ** 0.5) + 1):
-        if primes[i // 8] & (1 << (i % 8)):
-            for j in range(i * i, limit, i):
-                primes[j // 8] &= ~(1 << (j % 8))
-
-    return sum(i for i in range(limit) if primes[i // 8] & (1 << (i % 8)))
+    return sum(i for i in range(2, 2000000) if is_prime(i))
 
 print(sum_of_primes_below_two_million())
 
-# This version of the code uses the wheel factorization method to eliminate the need to check divisibility by 2, 3, 5, and 7 during the sieving process, which reduces the number of divisions that need to be performed. Additionally, it uses a bit array to store the prime numbers, which greatly reduces the memory usage of the algorithm and makes it more efficient.
+# This version of the code uses the Miller-Rabin primality test to check for prime numbers and sum them up. The function is_prime takes an integer n and returns True if n is prime and False otherwise. The function sum_of_primes_below_two_million iterates through the numbers from 2 to 2 million and calls the is_prime function on each number, adding the prime numbers to a sum and returns the result.
 
-# It's important to note that this version of the code is more complex than the previous ones and it may be harder to understand and maintain.
+# It's important to note that while the Miller-Rabin primality test is faster than the trial division method used in the Sieve of Eratosthenes, it is still not as fast as the optimized Sieve of Eratosthenes algorithm for small intervals, such as 2 million. It shines when it comes to larger intervals as it has a much better time complexity.
 
-# It's also important to test and compare the performance of different optimizations to find the best solution for your specific use case.
+# Additionally, the Miller-Rabin primality test is a probabilistic algorithm, meaning that there is a small chance of a composite number being reported as prime. This can be mitigated by increasing the number of iterations in the algorithm, which will increase the accuracy but will also increase the computational time.
+
+# As a specialist, I would recommend using the Miller-Rabin primality test for large intervals and using the Sieve of Eratosthenes for small intervals, as it's a good trade-off between performance and readability.
+
+# It's also important to test and compare the performance of different algorithms to find the best solution for your specific use case.
