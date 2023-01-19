@@ -52,3 +52,14 @@ print(sum_of_primes_below_two_million())
 # As a specialist, I would recommend using the Miller-Rabin primality test for large intervals and using the Sieve of Eratosthenes for small intervals, as it's a good trade-off between performance and readability.
 
 # It's also important to test and compare the performance of different algorithms to find the best solution for your specific use case.
+
+# A good rule of thumb for determining whether an interval is small or large can vary depending on the specific use case and the available resources (computational power, memory, etc.). Generally speaking, an interval can be considered small if it can be processed efficiently using the Sieve of Eratosthenes or other similar algorithms, and large if the processing time becomes impractical or infeasible.
+
+# As for the Miller-Rabin primality test, the number of iterations is usually determined by the desired accuracy of the test. The more iterations, the more accurate the test will be, but the longer it will take to run. A commonly used value for the number of iterations is 10, which has been proven to be a good trade-off between accuracy and performance.
+
+# However, in some cases where a high level of accuracy is required, the number of iterations can be increased. As a rule of thumb, you should increase the number of iterations by a factor of 4 for every additional bit in the number of digits, to achieve a similar level of accuracy. For example, if you want to achieve the same level of accuracy as 10 iterations for a 100-digit number, you would need to perform 40 iterations.
+
+# It's important to note that increasing the number of iterations will increase the computational time, so it's important to find the right balance between accuracy and performance for your specific use case.
+
+
+
