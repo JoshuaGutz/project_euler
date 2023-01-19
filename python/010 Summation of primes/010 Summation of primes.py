@@ -6,22 +6,19 @@
 # Find the sum of all the primes below two million.
 
 def sum_of_primes_below_two_million():
-    def is_prime(n):
-        if n < 2:
-            return False
+    def sieve_of_eratosthenes(n):
+        primes = [True] * (n + 1)
+        primes[0] = False
+        primes[1] = False
         for i in range(2, int(n ** 0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
+            if primes[i]:
+                for j in range(i * i, n + 1, i):
+                    primes[j] = False
+        return primes
 
-    primes = [2]
-    for i in range(3, 2000000):
-        if is_prime(i):
-            primes.append(i)
-    return sum(primes)
+    primes = sieve_of_eratosthenes(2000000)
+    return sum(i for i in range(len(primes)) if primes[i])
 
 print(sum_of_primes_below_two_million())
 
-# This code uses a nested function to check whether a given number is prime or not, and then iterates through numbers from 3 to 2 million, adding all prime numbers found to a list, and finally returns the sum of all prime numbers in the list.
-
-# However, this code would be very slow because it check prime number one by one, so you can use Sieve of Eratosthenes for a more efficient solution.
+# This code uses the Sieve of Eratosthenes algorithm to efficiently find all prime numbers below 2 million. The function sieve_of_eratosthenes returns a list of booleans representing whether each number from 0 to 2 million is prime or not. Then it iterates through this list and adds all prime numbers to a sum and returns the result. This solution is much more efficient than the previous one.
