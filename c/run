@@ -1,0 +1,6 @@
+#!/bin/bash
+
+gcc -c gutz_math.c;
+gcc -c $1.c;
+gcc -o $1 $1.o gutz_math.o;
+./$1;
