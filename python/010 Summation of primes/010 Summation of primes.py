@@ -60,6 +60,3 @@ print(sum_of_primes_below_two_million())
 # However, in some cases where a high level of accuracy is required, the number of iterations can be increased. As a rule of thumb, you should increase the number of iterations by a factor of 4 for every additional bit in the number of digits, to achieve a similar level of accuracy. For example, if you want to achieve the same level of accuracy as 10 iterations for a 100-digit number, you would need to perform 40 iterations.
 
 # It's important to note that increasing the number of iterations will increase the computational time, so it's important to find the right balance between accuracy and performance for your specific use case.
-
-
-
